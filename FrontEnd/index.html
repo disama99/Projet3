@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body id="modal-container">
+	<div class="overlay" id="jsmodaloverlay"></div>
+	<div class="modal-body " id="jsmodalbody">
+		<div class="modal-body_close" id="jsmodalclose">
+			<i class="fa-solid fa-xmark"></i>
+		</div>
+		<h3 id="jstitlemodal" class="titlemodal1">Galerie photo</h3>
+		<div class="modal-gallery js-modal" id="jsmodalGallery"></div>
+		<input id="js-ajoutphotModal" class="ajoutphotoModal" type="submit" value="Ajouter">
+		<button id="deleteGalleryButton" class="erasemodal">supprimer la galerie</button>
+	</div>
+	<div class="modal-body2" id="jsmodalbody2">
+		<div class="modal-body_close" id="jsmodalClose"></div>
+		<div class="modal-body_back" id="jsmodalback">
+			<i class="fa-solid fa-arrow-left ">
+			</i>
+		</div>
+		<h3 id="titlemodal2" class="titlemodal1">Ajout photo </h3>
+		<div class="modal2 centrer">
+			<img src="" alt="Simage" class="selectedImage" id="selectedImageDisplay">
+		</div>
+		<div>
+			<form id="myForm">
+				<img src="assets/icons/Group.png" alt="photo" class="noIm" id="jsnoIm">
+				<button type="submit" id="js-modalAddpic" class="addPic" accept=".jpg, .png" required>+ Ajouter
+					photo</button>
+				<span class="position" id="hideformatpicture">jpg, png: 4mo max</span>
+				<label for="title">Titre</label>
+				<input type="text" id="title" required>
+				<label for="category">Catégorie</label>
+				<select id="category" name="category" required>
+					<option value="">Tous</option>
+					<option value="1">Objets</option>
+					<option value="2">Appartements</option>
+					<option value="3">Hôtel et restaurants</option>
+				</select>
+				<input type="submit" value="Valider" id="valid">
+			</form>
+			<div id="error-message" class="error-message"></div>
+		</div>
+	</div>
+	<div class="modal-header" id="TokenokAffichage">
+		<div class="align">
+			<i class="fa-regular fa-pen-to-square fa-lg"></i>
+			<button id="modifier">mode édition</button>
+		</div>
+		<button class="bordureChangement" id="js-modalEdit">publier les changements</button>
+	</div>
+	<header>
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+		<nav>
+			<ul>
+				<li>projets</li>
+				<li>contact</li>
+				<li class="attribut">
+					<a href="login.html" >login</a>
+				</li>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section id="introduction">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+				<aside id="modif">
+					<div class="align1">
+						<div class="align2">
+							<i class="fa-regular fa-pen-to-square fa-lg " id="pen1"></i>
+							<button id="modifier1" class="boutonmodif">modifier</button>
+						</div>
+					</div>
+				</aside>
+			</figure>
+			<article>
+				<aside id="modif2">
+					<div class="align3">
+						<div class="align4">
+							<i class="fa-regular fa-pen-to-square fa-lg " id="pen2"></i>
+							<button id="modifier2" class="boutonmodif">modifier</button>
+						</div>
+					</div>
+				</aside>
+				<h2>Designer d'espace</h2>
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
+					finale du chantier.</p>
+				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
+					couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du
+					chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+				<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG,
+					décorateur(trice)</p>
+			</article>
+		</section>
+		<section id="portfolio">
+			<div class="fol modal_body2">
+				<h2>Mes Projets</h2>
+				<aside>
+					<div class="align3">
+						<i class="fa-regular fa-pen-to-square fa-lg facolor " id="pen3"></i>
+						<button id="modifier3" class="boutonmodif3">modifier</button>
+					</div>
+				</aside>
+			</div>
+			<ul id="filtres"></ul>
+			<div class="gallery">
+			</div>
+		</section>
+		<section id="contact">
+			<h2>Contact</h2>
+			<p>Vous avez un projet ? Discutons-en !</p>
+			<form action="#" method="post">
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+				<label for="message">Message</label>
+				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+				<input type="submit" value="Envoyer">
+			</form>
+		</section>
+	</main>
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+	<script src="script.js"></script>
+</body>
+
+</html>

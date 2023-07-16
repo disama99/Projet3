@@ -79,10 +79,10 @@ const displayIndex = () => {
             console.log('Erreur lors de la récupération des catégories :')
             console.log(err)
         })
+
 }
 // Appel de la fonction displayIndex() pour afficher les articles lors du chargement de la page
 displayIndex()
-
 
 // Vérification de la connection de l'utilisateur 
 let isLogged = () => {
@@ -146,6 +146,7 @@ modalcloseButton.addEventListener('click', e => {
 
 let addphoto = document.querySelector("#js-ajoutphotModal")
 addphoto.addEventListener("click", e => {
+    e.preventDefault();
     jsmodalbody2.style.display = "block"
 })
 
@@ -166,7 +167,6 @@ let file = null
 // Fonction pour charger les photos de la galerie dans la fenêtre modale
 function loadPhotosInModal() {
     let modalGallery = document.querySelector('#jsmodalbody .modal-gallery')
-
     // Récupération des photos depuis l'API
     fetch("http://localhost:5678/api/works/")
         .then(res => res.json())
@@ -182,17 +182,14 @@ function loadPhotosInModal() {
             }
             modalGallery.innerHTML = display
             let trashIcons = modalGallery.querySelectorAll('.trash-icon')
-
             //suppression d'une photo à l'aide de l'icône corbeille et de mise à jour de l'affichage en conséquence.
             trashIcons.forEach(icon => {
                 icon.addEventListener('click', e => {
                     let figure = e.target.closest('figure')
-                    console.log(figure)
                     let imageUrl = figure.querySelector('img').src
-
                     // Envoie d' une requête de suppression à l'API pour supprimer la photo correspondante
                     let photoId = figure.dataset.photoid
-                    console.log(photoId)
+
                     fetch(`http://localhost:5678/api/works/${photoId}`, {
                         method: 'DELETE',
                         headers: {
@@ -231,16 +228,16 @@ function deleteGallery() {
         .then(data => {
             // tableau de promesses pour supprimer chaque photo
             let deletePromises = data.map(photo => deletePhoto(photo.id))
-
             // Attente de la fin de toutes les suppressions
             return Promise.all(deletePromises)
         })
         .then(() => {
             // Vider la galerie dans la fenêtre modale
             modalGallery.innerHTML = ''
-            addButton.style.display = "flex";
-            hideCover.style.display = "flex";
-            hideformatPicture.style.display = "flex";
+
+            addButton.style.display = "flex"
+            hideCover.style.display = "flex"
+            hideformatPicture.style.display = "flex"
             console.log('Suppression de la galerie terminée.')
 
             displayIndex()
@@ -282,19 +279,19 @@ overlay.addEventListener('click', e => {
 
 //  sélection d'une image depuis de l' ordinateur de l'utilisateur.
 addButton.addEventListener('click', e => {
+    e.preventDefault();
     let input = document.createElement('input')
     input.type = 'file'
     input.accept = '.jpg, .png'
     input.click()
     input.onchange = e => {
         file = e.target.files[0]
-        console.log(file)
         let imageURL = URL.createObjectURL(file)
         photoPreview.src = imageURL
+        addButton.style.display = "none"
+        hideCover.style.display = "none"
+        hideformatPicture.style.display = "none"
     }
-    addButton.style.display = "none"
-    hideCover.style.display = "none"
-    hideformatPicture.style.display = "none"
 })
 
 //soumission du formulaire d'ajout de photo et d'envoie des données à l'API pour ajouter la photo.
@@ -307,7 +304,6 @@ myForm.addEventListener('submit', e => {
     formData.append("image", file)
     formData.append("title", document.querySelector("#title").value)
     formData.append("category", parseInt(document.getElementById("category").value))
-    console.log(formData)
     fetch('http://localhost:5678/api/works', {
         method: 'POST',
         headers: {
@@ -319,12 +315,27 @@ myForm.addEventListener('submit', e => {
             console.log('Formulaire soumis avec succès !')
             overlay.style.display = 'none'
             jsmodalbody2.style.display = 'none'
+            jsmodalbody.style.display = 'none'
             // Recharge des photos dans la fenêtre modale
             loadPhotosInModal()
-
             displayIndex()
+
+            addButton.style.display = "flex"// Affichage du bouton "Ajouter photo"
+            hideCover.style.display = "flex"
+            hideformatPicture.style.display = "flex"
+            resetForm()
         })
         .catch(error => {
             console.error('Erreur lors de l\'envoi du formulaire :', error)
         })
+
 })
+
+
+// Fonction pour réinitialiser les valeurs du formulaire
+function resetForm() {
+    document.getElementById('title').value = '' // Réinitialiser la valeur du champ "title"
+    document.getElementById('category').selectedIndex = 0 // Réinitialiser la sélection de la catégorie
+    photoPreview.src = '' // Réinitialiser le champ de prévisualisation de l'image
+    file = null // Réinitialiser la variable "file" à null
+}

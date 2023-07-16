@@ -368,8 +368,6 @@ h2 {
 
 .selectedImage {
 
-	width: 129px;
-	height: 169px;
 }
 
 .noIm {
@@ -382,8 +380,14 @@ h2 {
 
 .addPic {
 	margin-bottom: 10px;
+	
 }
-
+.center-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
 button.addPic,
 i.fa-regular.fa-image {
 	position: absolute;
